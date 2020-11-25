@@ -1,7 +1,9 @@
 ﻿using System;
 namespace DrivingLicense.WebApi.Models.Interfaces
 {
-    public interface EmptyInterface
+    public interface ITopic
     {
+        string Name { get; set; }
+        ITicket[] Tickets { get; set; }
     }
 }

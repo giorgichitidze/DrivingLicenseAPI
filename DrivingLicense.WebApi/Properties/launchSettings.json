@@ -9,18 +9,18 @@
     }
   },
   "profiles": {
-    "DrivingLicense.WebApi": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:44412;http://localhost:19200",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "DrivingLicense.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:44412;http://localhost:19200",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
