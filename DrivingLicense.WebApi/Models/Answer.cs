@@ -1,11 +1,14 @@
 using DrivingLicense.WebApi.Models.Interfaces;
+using Newtonsoft.Json;
 
 namespace DrivingLicense.WebApi.Models
 {
-    public class Answer : IAnswer
+    public partial class Answer : IAnswer
     {
-        public int Answer {get;set;}
-        public string Ans {get;set;}
-        public bool IsCorrect { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        [JsonProperty("Ans")]
+        public string Ans { get; set; }
+
+        [JsonProperty("Correct")]
+        public bool IsCorrect { get; set; }
     }
 }
