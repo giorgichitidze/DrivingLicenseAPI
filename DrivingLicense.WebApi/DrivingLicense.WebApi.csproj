@@ -33,6 +33,7 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="ActionFilters\" />
+    <Folder Include="Models\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Infastructure\UserIdentityDbContext.cs" />
