@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Quizz.WebApi.Migrations
+namespace DrivingLicense.WebApi.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -49,18 +49,19 @@ namespace Quizz.WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuizzEntity",
+                name: "LicenseCategory",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Modified = table.Column<DateTime>(nullable: false),
-                    Question = table.Column<string>(nullable: true)
+                    Img = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuizzEntity", x => x.Id);
+                    table.PrimaryKey("PK_LicenseCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,6 +171,52 @@ namespace Quizz.WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Topic",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Modified = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LicenseCategoryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Topic_LicenseCategory_LicenseCategoryId",
+                        column: x => x.LicenseCategoryId,
+                        principalTable: "LicenseCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ticket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Modified = table.Column<DateTime>(nullable: false),
+                    Help = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
+                    Question = table.Column<string>(nullable: true),
+                    TopicId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ticket_Topic_TopicId",
+                        column: x => x.TopicId,
+                        principalTable: "Topic",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answer",
                 columns: table => new
                 {
@@ -177,24 +224,25 @@ namespace Quizz.WebApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Modified = table.Column<DateTime>(nullable: false),
-                    CurrentAnswer = table.Column<string>(nullable: true),
-                    QuizzEntityId = table.Column<int>(nullable: true)
+                    Ans = table.Column<string>(nullable: true),
+                    IsCorrect = table.Column<bool>(nullable: false),
+                    TicketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Answer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_QuizzEntity_QuizzEntityId",
-                        column: x => x.QuizzEntityId,
-                        principalTable: "QuizzEntity",
+                        name: "FK_Answer_Ticket_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Ticket",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_QuizzEntityId",
+                name: "IX_Answer_TicketId",
                 table: "Answer",
-                column: "QuizzEntityId");
+                column: "TicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -232,6 +280,16 @@ namespace Quizz.WebApi.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ticket_TopicId",
+                table: "Ticket",
+                column: "TopicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topic_LicenseCategoryId",
+                table: "Topic",
+                column: "LicenseCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -255,13 +313,19 @@ namespace Quizz.WebApi.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "QuizzEntity");
+                name: "Ticket");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Topic");
+
+            migrationBuilder.DropTable(
+                name: "LicenseCategory");
         }
     }
 }

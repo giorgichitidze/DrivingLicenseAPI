@@ -1,13 +1,12 @@
 using DrivingLicense.WebApi.Models.BaseTypes;
-using DrivingLicense.WebApi.Models.Interfaces;
 using Newtonsoft.Json;
 
 namespace DrivingLicense.WebApi.Models
 {
-   public partial class Ticket : BaseEntity, ITicket
+   public partial class Ticket : BaseEntity
     {
         [JsonProperty("Answers")]
-        public IAnswer[] Answers { get; set; }
+        public Answer[] Answers { get; set; }
 
         [JsonProperty("Help")]
         public string Help { get; set; }
