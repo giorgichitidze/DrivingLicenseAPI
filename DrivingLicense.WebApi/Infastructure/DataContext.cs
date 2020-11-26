@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel;
+using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DrivingLicense.WebApi.Factories;
@@ -8,6 +9,13 @@ namespace DrivingLicense.WebApi.Infastructure
 {
     public class DataContext : IdentityDbContext<ApplicationUser>
     {
+
+
+        public DbSet<Answer> Answer {get;set;}
+        public DbSet<Ticket> Ticket {get;set;}
+        public DbSet<Topic> Topic {get;set;}
+        public DbSet<LicenseCategory> LicenseCategory {get;set;}
+        
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
