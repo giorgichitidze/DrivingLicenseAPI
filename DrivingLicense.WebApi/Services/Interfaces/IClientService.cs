@@ -4,6 +4,6 @@ namespace DrivingLicense.WebApi.Services.Interfaces
 {
     public interface IClientService
     {
-         void AddTicket(LicenseCategory licenseCategory);
+         void AddTicketAsync(LicenseCategory licenseCategory);
     }
 }
