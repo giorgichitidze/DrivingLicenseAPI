@@ -20,12 +20,12 @@ namespace DrivingLicense.WebApi.Infastructure
             _context = context;
             _entities = context.Set<T>();
         }
-
         public void Delete(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("Entity");
+                throw new ArgumentException("Entity is broken");
             }
 
             _entities.Remove(entity);

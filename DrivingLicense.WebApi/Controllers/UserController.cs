@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DrivingLicense.WebApi.Infastructure.Interfaces;
 using DrivingLicense.WebApi.Models;
+using System.Threading.Tasks;
 using DrivingLicense.WebApi.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,7 +24,6 @@ namespace Quizz.WebApi.Controllers
         {
             _userService = userService;
         }
-
 
         [HttpPost]
         [Route("registeruser")]
