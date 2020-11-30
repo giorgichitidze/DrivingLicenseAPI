@@ -25,8 +25,15 @@ namespace DrivingLicense.WebApi.Controllers
             return View();
         }
 
-        public IActionResult SetTicket([FromBody] LicenseCategory licenseCategory)
+        public async Task<IActionResult> SetTicket([FromBody]LicenseCategory licenseCategory)
         {
+
+            await Task.Run(() => {
+                _clientService.AddTicketAsync(licenseCategory);
+            });
+          
+
+
             return null;
         }
     }
