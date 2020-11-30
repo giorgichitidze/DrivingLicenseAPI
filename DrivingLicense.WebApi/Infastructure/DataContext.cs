@@ -17,8 +17,6 @@ namespace DrivingLicense.WebApi.Infastructure
         public DbSet<LicenseCategory> LicenseCategory {get;set;}
 
 
-        public List<int> myList = new List<int>();
-        
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 

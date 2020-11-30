@@ -31,7 +31,6 @@ namespace DrivingLicense.WebApi.Controllers
             await Task.Run(() => {
                 _clientService.AddTicketAsync(licenseCategory);
             });
-          
 
 
             return null;
