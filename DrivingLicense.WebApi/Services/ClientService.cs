@@ -14,6 +14,7 @@ namespace DrivingLicense.WebApi.Services
         {
             _repository = repository;   
         }
+
         public async Task AddTicketAsync(LicenseCategory licenseCategory)
         {
             await Task.Run(() =>

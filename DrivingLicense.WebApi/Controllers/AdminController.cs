@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DrivingLicense.WebApi.Controllers
 {
+    [ApiController]
+    [Route("Admin")]
     public class AdminController : Controller
     {
         private IClientService _clientService;
@@ -25,6 +27,17 @@ namespace DrivingLicense.WebApi.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Route("testpost")]
+        public IActionResult TestMethod()
+        {
+            Console.WriteLine("test");
+
+            return Ok(new {Message = "Ok", isError = false});
+        }
+
+        [HttpPost]
+        [Route("setticket")]
         public async Task<IActionResult> SetTicket([FromBody]LicenseCategory licenseCategory)
         {
 
@@ -33,7 +46,11 @@ namespace DrivingLicense.WebApi.Controllers
             });
 
 
-            return null;
+            return Ok(new {
+                    IsSuccesfull = true,
+                    message = "Its ok"
+                });
+
         }
     }
 }
