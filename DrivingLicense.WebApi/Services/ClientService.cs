@@ -9,13 +9,12 @@ namespace DrivingLicense.WebApi.Services
     public class ClientService : IClientService
     {
         IRepository<LicenseCategory> _repository;
-        
+
         public ClientService(IRepository<LicenseCategory> repository)
         {
             _repository = repository;   
         }
-        public async void AddTicketAsync(LicenseCategory licenseCategory)
-         
+        public async Task AddTicketAsync(LicenseCategory licenseCategory)
         {
             await Task.Run(() =>
             {

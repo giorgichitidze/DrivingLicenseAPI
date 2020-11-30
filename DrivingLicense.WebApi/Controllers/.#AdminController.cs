@@ -1,1 +1,0 @@
-tornikegomareli@MacBook-Pro.local.16797
