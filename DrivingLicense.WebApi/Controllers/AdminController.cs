@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DrivingLicense.WebApi.Models;
 using DrivingLicense.WebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,11 +39,14 @@ namespace DrivingLicense.WebApi.Controllers
 
         [HttpPost]
         [Route("setticket")]
-        public async Task<IActionResult> SetTicket([FromBody]LicenseCategory licenseCategory)
+        public async Task<IActionResult> SetTicket([FromBody] List<LicenseCategory> licenseCategory)
         {
 
             await Task.Run(() => {
-                _clientService.AddTicketAsync(licenseCategory);
+                foreach(var item in licenseCategory)
+                {
+                    _clientService.AddTicketAsync(item);
+                }
             });
 
 
@@ -52,5 +56,14 @@ namespace DrivingLicense.WebApi.Controllers
                 });
 
         }
+    }
+
+    public class Person
+    {
+        [JsonProperty("Name")]
+        public string Name { get; set; }
+
+        [JsonProperty("LastName")]
+        public string LastName { get; set; }
     }
 }

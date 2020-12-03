@@ -12,18 +12,17 @@ namespace DrivingLicense.WebApi.Services
 
         public ClientService(IRepository<LicenseCategory> repository)
         {
-            _repository = repository;   
+            _repository = repository;
         }
 
         public async Task AddTicketAsync(LicenseCategory licenseCategory)
         {
-            await Task.Run(() =>
             {
                 if (licenseCategory != null)
                 {
-                    _repository.Insert(licenseCategory);
+                    await _repository.Insert(licenseCategory);
                 }
-            });
+            }
         }
     }
 }

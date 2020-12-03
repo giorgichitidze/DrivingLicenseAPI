@@ -6,6 +6,7 @@ using DrivingLicense.WebApi.Infastructure.Interfaces;
 using DrivingLicense.WebApi.Models;
 using DrivingLicense.WebApi.Models.BaseTypes;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace DrivingLicense.WebApi.Infastructure
 {
@@ -14,13 +15,14 @@ namespace DrivingLicense.WebApi.Infastructure
         private readonly DataContext _context;
         private DbSet<T> _entities;
         private string _errorMessage = String.Empty;
+        private object _lock = new object();
 
         public Repository(DataContext context)
         {
             _context = context;
             _entities = context.Set<T>();
         }
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             if (entity == null)
             {
@@ -29,7 +31,7 @@ namespace DrivingLicense.WebApi.Infastructure
             }
 
             _entities.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public T Get(int id)
@@ -42,15 +44,22 @@ namespace DrivingLicense.WebApi.Infastructure
             return _entities.AsEnumerable();
         }
 
-        public void Insert(T entity)
+        public async Task Insert(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentException("entity");
             }
 
-            _entities.Add(entity);
-            _context.SaveChanges();
+            try
+            {
+                _entities.Add(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                var s = entity;
+            }
         }
 
         public void Remove(T entity)

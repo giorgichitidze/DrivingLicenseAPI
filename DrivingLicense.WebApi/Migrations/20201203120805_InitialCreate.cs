@@ -54,10 +54,8 @@ namespace DrivingLicense.WebApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Modified = table.Column<DateTime>(nullable: false),
-                    Img = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Img = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,20 +174,18 @@ namespace DrivingLicense.WebApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Modified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    LicenseCategoryId = table.Column<int>(nullable: true)
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Topic", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Topic_LicenseCategory_LicenseCategoryId",
-                        column: x => x.LicenseCategoryId,
+                        name: "FK_Topic_LicenseCategory_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "LicenseCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,12 +194,10 @@ namespace DrivingLicense.WebApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Modified = table.Column<DateTime>(nullable: false),
-                    Help = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
                     Question = table.Column<string>(nullable: true),
-                    TopicId = table.Column<int>(nullable: true)
+                    Image = table.Column<string>(nullable: true),
+                    Help = table.Column<string>(nullable: true),
+                    TopicId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,7 +207,7 @@ namespace DrivingLicense.WebApi.Migrations
                         column: x => x.TopicId,
                         principalTable: "Topic",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,11 +216,9 @@ namespace DrivingLicense.WebApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Modified = table.Column<DateTime>(nullable: false),
                     Ans = table.Column<string>(nullable: true),
-                    IsCorrect = table.Column<bool>(nullable: false),
-                    TicketId = table.Column<int>(nullable: true)
+                    Correct = table.Column<bool>(nullable: false),
+                    TicketId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,7 +228,7 @@ namespace DrivingLicense.WebApi.Migrations
                         column: x => x.TicketId,
                         principalTable: "Ticket",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -287,9 +279,9 @@ namespace DrivingLicense.WebApi.Migrations
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topic_LicenseCategoryId",
+                name: "IX_Topic_CategoryId",
                 table: "Topic",
-                column: "LicenseCategoryId");
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

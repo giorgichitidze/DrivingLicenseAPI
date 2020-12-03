@@ -36,6 +36,7 @@ namespace DrivingLicense.WebApi.Extensions
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IUserService, UserService>();
+            serviceCollection.AddTransient<IClientService, ClientService>();
         }
 
         private static string GetDataConnectionStringFromConfig()

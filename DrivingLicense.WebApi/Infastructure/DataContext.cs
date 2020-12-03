@@ -25,6 +25,22 @@ namespace DrivingLicense.WebApi.Infastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<LicenseCategory>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Answer>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Ticket>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Topic>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
         }
 
         protected override void OnConfiguring

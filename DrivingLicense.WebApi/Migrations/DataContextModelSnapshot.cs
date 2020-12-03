@@ -25,16 +25,10 @@ namespace DrivingLicense.WebApi.Migrations
                     b.Property<string>("Ans")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsCorrect")
+                    b.Property<bool>("Correct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("TicketId")
+                    b.Property<int>("TicketId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -120,13 +114,7 @@ namespace DrivingLicense.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Img")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Modified")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -143,22 +131,16 @@ namespace DrivingLicense.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Help")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Question")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TopicId")
+                    b.Property<int>("TopicId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -174,21 +156,15 @@ namespace DrivingLicense.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("LicenseCategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LicenseCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Topic");
                 });
@@ -323,23 +299,29 @@ namespace DrivingLicense.WebApi.Migrations
 
             modelBuilder.Entity("DrivingLicense.WebApi.Models.Answer", b =>
                 {
-                    b.HasOne("DrivingLicense.WebApi.Models.Ticket", null)
+                    b.HasOne("DrivingLicense.WebApi.Models.Ticket", "Ticket")
                         .WithMany("Answers")
-                        .HasForeignKey("TicketId");
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DrivingLicense.WebApi.Models.Ticket", b =>
                 {
-                    b.HasOne("DrivingLicense.WebApi.Models.Topic", null)
+                    b.HasOne("DrivingLicense.WebApi.Models.Topic", "Topic")
                         .WithMany("Tickets")
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DrivingLicense.WebApi.Models.Topic", b =>
                 {
-                    b.HasOne("DrivingLicense.WebApi.Models.LicenseCategory", null)
+                    b.HasOne("DrivingLicense.WebApi.Models.LicenseCategory", "Category")
                         .WithMany("Topics")
-                        .HasForeignKey("LicenseCategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

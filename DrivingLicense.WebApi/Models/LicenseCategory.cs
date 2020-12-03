@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DrivingLicense.WebApi.Models.BaseTypes;
 using Newtonsoft.Json;
 
@@ -5,13 +8,8 @@ namespace DrivingLicense.WebApi.Models
 {
     public partial class LicenseCategory : BaseEntity
     {
-        [JsonProperty("Img")]
-        public string Img { get; set; }
-
-        [JsonProperty("Name")]
         public string Name { get; set; }
-
-        [JsonProperty("Topics")]
-        public Topic[] Topics { get; set; }
+        public string Img { get; set; }
+        public ICollection<Topic> Topics { get; set; }
     }
 }
