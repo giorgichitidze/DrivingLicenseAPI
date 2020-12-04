@@ -8,13 +8,18 @@ namespace DrivingLicense.WebApi.Services.Interfaces
 {
     public class GetLicenseCategoryService : IGetLicenseCategory
     {
+        private IRepository<LicenseCategory> _repository;
 
         public GetLicenseCategoryService(IRepository<LicenseCategory> repository)
         {
+            _repository = repository;
         }
 
         public List<LicenseCategory> GetLicenseCategories()
         {
+            var collection = _repository.GetAll();
+
+            return collection.ToList();
         }
     }
 }
